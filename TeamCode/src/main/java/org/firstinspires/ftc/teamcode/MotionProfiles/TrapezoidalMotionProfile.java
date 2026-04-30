@@ -8,7 +8,6 @@ public class TrapezoidalMotionProfile extends MotionProfile {
     public double vMax;
     public double t1;
     public double t2;
-    public Timer t;
     public Timer deriv;
     public static double dv = 0;
     public double lastVelocity = 0;
@@ -19,7 +18,6 @@ public class TrapezoidalMotionProfile extends MotionProfile {
         this.vMax = vmax;
         this.tCruise = tCruise;
         this.deriv = new Timer();
-        tTotal = t1 + t2 + tCruise;
         deriv.resetTimer();
     }
     @Override
@@ -29,7 +27,7 @@ public class TrapezoidalMotionProfile extends MotionProfile {
         double position = 0;
         double time = t.getElapsedTimeSeconds();
         double dt = deriv.getElapsedTimeSeconds();
-        dv = lastVelocity - velocity;
+        dv = velocity - lastVelocity;
         deriv.resetTimer();
         if (time < t1) {
             acceleration = (vMax) / t1;
